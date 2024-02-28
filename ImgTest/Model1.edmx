@@ -1,0 +1,222 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище TESTOModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Popa">
+          <Key>
+            <PropertyRef Name="Lupa" />
+          </Key>
+          <Property Name="Lupa" Type="int" Nullable="false" />
+          <Property Name="Image" Type="image" />
+          <Property Name="ID_Pupa" Type="int" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Таблица2">
+          <Key>
+            <PropertyRef Name="ID_Pupa" />
+          </Key>
+          <Property Name="ID_Pupa" Type="int" Nullable="false" />
+          <Property Name="ID_Lupa" Type="int" />
+        </EntityType>
+        <EntityType Name="Таблица3">
+          <Key>
+            <PropertyRef Name="ID_Img" />
+          </Key>
+          <Property Name="ID_Img" Type="int" Nullable="false" />
+          <Property Name="ID_Image" Type="image" />
+        </EntityType>
+        <Association Name="FK_Popa_Таблица2">
+          <End Role="Таблица2" Type="Self.Таблица2" Multiplicity="0..1" />
+          <End Role="Popa" Type="Self.Popa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Таблица2">
+              <PropertyRef Name="ID_Pupa" />
+            </Principal>
+            <Dependent Role="Popa">
+              <PropertyRef Name="ID_Pupa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Таблица2_Popa">
+          <End Role="Popa" Type="Self.Popa" Multiplicity="0..1" />
+          <End Role="Таблица2" Type="Self.Таблица2" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Popa">
+              <PropertyRef Name="Lupa" />
+            </Principal>
+            <Dependent Role="Таблица2">
+              <PropertyRef Name="ID_Lupa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище TESTOModelContainer">
+          <EntitySet Name="Popa" EntityType="Self.Popa" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Таблица2" EntityType="Self.Таблица2" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Таблица3" EntityType="Self.Таблица3" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Popa_Таблица2" Association="Self.FK_Popa_Таблица2">
+            <End Role="Таблица2" EntitySet="Таблица2" />
+            <End Role="Popa" EntitySet="Popa" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Таблица2_Popa" Association="Self.FK_Таблица2_Popa">
+            <End Role="Popa" EntitySet="Popa" />
+            <End Role="Таблица2" EntitySet="Таблица2" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TESTOModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Popa">
+          <Key>
+            <PropertyRef Name="Lupa" />
+          </Key>
+          <Property Name="Lupa" Type="Int32" Nullable="false" />
+          <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="ID_Pupa" Type="Int32" />
+          <NavigationProperty Name="Таблица2" Relationship="Self.FK_Popa_Таблица2" FromRole="Popa" ToRole="Таблица2" />
+          <NavigationProperty Name="Таблица21" Relationship="Self.FK_Таблица2_Popa" FromRole="Popa" ToRole="Таблица2" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Таблица2">
+          <Key>
+            <PropertyRef Name="ID_Pupa" />
+          </Key>
+          <Property Name="ID_Pupa" Type="Int32" Nullable="false" />
+          <Property Name="ID_Lupa" Type="Int32" />
+          <NavigationProperty Name="Popa" Relationship="Self.FK_Popa_Таблица2" FromRole="Таблица2" ToRole="Popa" />
+          <NavigationProperty Name="Popa1" Relationship="Self.FK_Таблица2_Popa" FromRole="Таблица2" ToRole="Popa" />
+        </EntityType>
+        <EntityType Name="Таблица3">
+          <Key>
+            <PropertyRef Name="ID_Img" />
+          </Key>
+          <Property Name="ID_Img" Type="Int32" Nullable="false" />
+          <Property Name="ID_Image" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <Association Name="FK_Popa_Таблица2">
+          <End Role="Таблица2" Type="Self.Таблица2" Multiplicity="0..1" />
+          <End Role="Popa" Type="Self.Popa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Таблица2">
+              <PropertyRef Name="ID_Pupa" />
+            </Principal>
+            <Dependent Role="Popa">
+              <PropertyRef Name="ID_Pupa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Таблица2_Popa">
+          <End Role="Popa" Type="Self.Popa" Multiplicity="0..1" />
+          <End Role="Таблица2" Type="Self.Таблица2" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Popa">
+              <PropertyRef Name="Lupa" />
+            </Principal>
+            <Dependent Role="Таблица2">
+              <PropertyRef Name="ID_Lupa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TESTOEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Popa" EntityType="Self.Popa" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="Таблица2" EntityType="Self.Таблица2" />
+          <EntitySet Name="Таблица3" EntityType="Self.Таблица3" />
+          <AssociationSet Name="FK_Popa_Таблица2" Association="Self.FK_Popa_Таблица2">
+            <End Role="Таблица2" EntitySet="Таблица2" />
+            <End Role="Popa" EntitySet="Popa" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Таблица2_Popa" Association="Self.FK_Таблица2_Popa">
+            <End Role="Popa" EntitySet="Popa" />
+            <End Role="Таблица2" EntitySet="Таблица2" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище TESTOModelContainer" CdmEntityContainer="TESTOEntities">
+          <EntitySetMapping Name="Popa">
+            <EntityTypeMapping TypeName="TESTOModel.Popa">
+              <MappingFragment StoreEntitySet="Popa">
+                <ScalarProperty Name="Lupa" ColumnName="Lupa" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="ID_Pupa" ColumnName="ID_Pupa" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="TESTOModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Таблица2">
+            <EntityTypeMapping TypeName="TESTOModel.Таблица2">
+              <MappingFragment StoreEntitySet="Таблица2">
+                <ScalarProperty Name="ID_Pupa" ColumnName="ID_Pupa" />
+                <ScalarProperty Name="ID_Lupa" ColumnName="ID_Lupa" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Таблица3">
+            <EntityTypeMapping TypeName="TESTOModel.Таблица3">
+              <MappingFragment StoreEntitySet="Таблица3">
+                <ScalarProperty Name="ID_Img" ColumnName="ID_Img" />
+                <ScalarProperty Name="ID_Image" ColumnName="ID_Image" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
